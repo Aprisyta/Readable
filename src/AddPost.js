@@ -4,13 +4,18 @@ import { DebounceInput } from 'react-debounce-input';
 class AddPost extends Component{
   render(){
     return(
-      <div>
-        <div className="search-books-input-wrapper">
+      <div className="write-post-bar">
+        <div className="write-post-bar-textarea">
           <DebounceInput
-            type="text"
+            className="write-post"
+            type="textarea"
             placeholder="Write something here!"
             debounceTimeout={300}
+            rows="5"
           />
+        </div>
+        <div className="write-post-bar-button-container">
+          <button value="post" className="write-post-bar-button">Post </button>
         </div>
       </div>
     )

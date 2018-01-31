@@ -15,6 +15,51 @@
   font-size: 2em;
 }
 
+.fixed-container {
+  width: 100%;
+  position: fixed;
+}
+
+.write-post-bar {
+  height: 50px;
+  width: 70%;
+  margin: 3% 15%;
+  border: medium ridge #e9e;
+}
+
+.write-post-bar-textarea {
+  border-right: medium ridge #e9e;
+  display: flex;
+  float: left;
+  width: 90%;
+}
+
+.write-post {
+  border: none;
+  flex: 1;
+  width: 70%;
+  height: 50px;
+  padding: 0 40px;
+  font-size: 1em;
+}
+
+.write-post-bar-button {
+  width: 70%;
+  height: 80%;
+  margin: 11px 0;
+  padding: 7px 0;
+  color: white;
+  background-color: #6a1b9a;
+  font-family: inherit;
+  font-weight: bolder;
+  border: #6a1b9a;
+}
+
+.write-post-bar-button-container {
+  width: 9.6%;
+  float: right;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
