@@ -1,3 +1,7 @@
+body {
+  line-height: 1.5
+}
+
 .App {
   text-align: center;
   font-family: monospace;
@@ -17,7 +21,6 @@
 
 .fixed-container {
   width: 100%;
-  position: fixed;
 }
 
 .write-post-bar {
@@ -63,9 +66,14 @@
 .post-container {
   margin: 3% 15%;
   width: 70%;
+  text-align: left;
+  border: medium ridge #e9e;
+  padding: 11px 0;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.post-container div {
+  padding: 0 40px;
+}
+.post-name-holder {
+  font-size: x-large;
 }

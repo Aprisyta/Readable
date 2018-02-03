@@ -2,8 +2,22 @@ import React, { Component } from 'react';
 import './App.css';
 import AddPost from './AddPost'
 import Post from './Post'
+import * as PostsAPI from './utils/PostsAPI'
 
 class App extends Component {
+
+  state = {
+    categories: []
+  }
+
+  componentDidMount() {
+    PostsAPI.getAllCategories().then((posts) => {
+      this.setState({
+        categories,
+      })
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -13,6 +27,8 @@ class App extends Component {
           </header>
           <AddPost />
         </div>
+        <Post />
+        <Post />
         <Post />
       </div>
     );
