@@ -95,7 +95,7 @@ export const voteOnComment = (id, option) =>
     body: JSON.stringify({ option })
   }).then(res => res.json())
 
-export const editPost = (id, editedComment) =>
+export const editComment = (id, editedComment) =>
   fetch(`${api}/comments/${id}`, {
     method: 'PUT',
     headers: {

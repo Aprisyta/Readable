@@ -14,6 +14,12 @@ class App extends Component {
   }
 
   componentDidMount() {
+    PostsAPI.getAllPosts().then((posts) => {
+      this.setState({
+        posts,
+      })
+    })
+
     // PostsAPI.getAllCategories().then((categories) => {
     //   this.setState({
     //     categories,
@@ -21,12 +27,6 @@ class App extends Component {
     // })
 
     // PostsAPI.getByCategory(`react`).then((posts) => {
-    //   this.setState({
-    //     posts,
-    //   })
-    // })
-
-    // PostsAPI.getAllPosts().then((posts) => {
     //   this.setState({
     //     posts,
     //   })
