@@ -11,7 +11,6 @@ class AddPost extends Component{
             type="textarea"
             placeholder="Write something here!"
             debounceTimeout={300}
-            rows="5"
           />
         </div>
         <div className="write-post-bar-button-container">
