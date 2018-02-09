@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import AddPost from './AddPost'
 import Post from './Post'
-import * as PostsAPI from './utils/PostsAPI'
+import * as PostsAPI from '../utils/PostsAPI'
 
 class App extends Component {
 
