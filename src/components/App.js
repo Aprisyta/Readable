@@ -3,6 +3,7 @@ import './App.css';
 import AddPost from './AddPost'
 import Post from './Post'
 import * as PostsAPI from '../utils/PostsAPI'
+import { connect } from 'react-redux'
 
 class App extends Component {
 
