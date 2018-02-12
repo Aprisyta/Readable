@@ -1,42 +1,38 @@
-export const ADD_POST = 'ADD_POST'
-export const DELETE_POST = 'DELETE_POST'
-export const ADD_COMMENT = 'ADD_COMMENT'
-export const DELETE_COMMENT = 'DELETE_COMMENT'
-// export const VOTE_POST = 'VOTE_POST'
+export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
+export const GET_ALL_POSTS = 'GET_ALL_POSTS'
+export const GET_POST = 'GET_POST'
+export const GET_ALL_COMMENTS = 'GET_ALL_COMMENTS'
+export const GET_COMMENT = 'GET_COMMENT'
 
-export func addPost ({ uuid, timestamp, title, body, author, category }) {
+export func getAllCategories () {
   return {
-    type: ADD_POST,
-    uuid,
-    author,
-    timestamp,
-    category,
-    title,
-    body
+    type: GET_ALL_CATEGORIES
   }
 }
 
-export func deletePost ({ id }) {
+export func getAllPosts () {
   return {
-    type: DELETE_POST,
-    id
+    type: GET_ALL_POSTS
   }
 }
 
-export func addComment ({ uuid, timestamp, body, author, parentId }) {
+export func getPost ({ id }) {
   return {
-    type: ADD_COMMENT,
-    uuid,
-    timestamp,
-    body,
-    author,
-    parentId
+    type: GET_POST,
+    id,
   }
 }
 
-export func deleteComment ({ id }) {
+export func getAllComments ({ postID }) {
   return {
-    type: DELETE_COMMENT,
-    id
+    type: GET_ALL_COMMENTS,
+    postID
+  }
+}
+
+export func getComment ({ commentID }) {
+  return {
+    type: GET_COMMENT,
+    commentID
   }
 }
