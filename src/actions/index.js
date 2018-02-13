@@ -1,4 +1,4 @@
-import * as PostsAPI fro '../utils/PostsAPI'
+import * as PostsAPI from '../utils/PostsAPI'
 
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 export const GET_ALL_POSTS = 'GET_ALL_POSTS'
@@ -6,7 +6,7 @@ export const GET_POST = 'GET_POST'
 export const GET_ALL_COMMENTS = 'GET_ALL_COMMENTS'
 export const GET_COMMENT = 'GET_COMMENT'
 
-export func recieveAllCategories (categories) {
+export function recieveAllCategories (categories) {
   return {
     type: GET_ALL_CATEGORIES,
     categories
@@ -19,19 +19,20 @@ export const getAllCategories = () => dispatch => (
       .then(categories => dispatch(recieveAllCategories(categories)))
 );
 
-export func recieveAllPosts (posts) {
+export function recieveAllPosts (posts) {
   return {
-    type: GET_ALL_POSTS
+    type: GET_ALL_POSTS,
+    posts
   }
 }
 
 export const getAllPosts = () => dispatch => (
   PostsAPI
       .getAllPosts()
-      .then(posts => dispatch(recieveAllPosts(categories)))
+      .then(posts => dispatch(recieveAllPosts(posts)))
 );
 
-export func recievePost ( post ) {
+export function recievePost ( post ) {
   return {
     type: GET_POST,
     post,
@@ -44,7 +45,7 @@ export const getPost = (id) => dispatch => (
       .then(post => dispatch(recievePost(post)))
 );
 
-export func recieveAllComments (comments) {
+export function recieveAllComments (comments) {
   return {
     type: GET_ALL_COMMENTS,
     comments
@@ -57,15 +58,15 @@ export const getAllComments = (postID) => dispatch => (
       .then(comments => dispatch(recieveAllComments(comments)))
 );
 
-export func recieveComment ({ commentID }) {
+export function recieveComment ( comment ) {
   return {
     type: GET_COMMENT,
-    commentID
+    comment
   }
 }
 
-export const getAllComments = (postID) => dispatch => (
+export const getComment = (commentID) => dispatch => (
   PostsAPI
-      .getCommentsOnPost()
-      .then(comments => dispatch(recieveAllComments(comments)))
+      .getCommentByID()
+      .then(comment => dispatch(recieveComment(comment)))
 );

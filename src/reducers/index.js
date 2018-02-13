@@ -6,6 +6,15 @@ import {
   GET_COMMENT
 } from '../actions'
 
-export func post ( state = [], action ) {
-
+function fetchPosts ( state = [], action ) {
+  let returnValue = []
+  switch (action.type) {
+    case GET_ALL_POSTS:
+        returnValue = action.posts
+        return returnValue
+    default:
+      return state;
+  }
 }
+
+export default fetchPosts
