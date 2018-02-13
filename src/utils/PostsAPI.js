@@ -66,11 +66,6 @@ export const getCommentsOnPost = (id) =>
   fetch(`${api}/posts/${id}/comments`, {headers})
     .then(res => res.json())
 
-// id - Any unique ID. As with posts, UUID is probably the best here.
-// timestamp - [Timestamp] Get this however you want.
-// body - [String]
-// author - [String]
-// parentId - Should match a post id in the database.
 export const addComment = (body) =>
   fetch(`${api}/comments`, {
     method: 'POST',
