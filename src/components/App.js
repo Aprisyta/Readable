@@ -16,7 +16,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log("Within App");
     this.props.getAllPosts().then((res) => this.setState({
       posts: res.posts
     }))
@@ -89,7 +88,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.posts);
     const { posts } = this.state;
     return (
       <div className="App">

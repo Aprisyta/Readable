@@ -19,11 +19,9 @@ function fetchPosts ( state = [] , action ) {
 }
 
 function fetchPostDetails ( state = [], action ) {
-  let returnValue = []
-  switch (action) {
+  switch (action.type) {
     case GET_POST:
-      returnValue = action.post
-      return returnValue
+      return action.post
     default:
       return state;
   }

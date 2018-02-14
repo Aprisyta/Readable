@@ -8,19 +8,15 @@ class Post extends Component {
   }
 
   componentDidMount () {
-    console.log("Within post");
-    const { id } = this.props.id
-    if(this.props.id) {
-      // console.log(this.props.id);
-      this.props.getPost(id).then((post) => this.setState({
-        post,
-      }))
-    }
+    const { id } = this.props
+    this.props.getPost( id ).then((res) => {
+        this.setState({
+          post: res.post
+      })
+    })
   }
 
   render(){
-    const { post } = this.state.post
-    console.log(post);
     return(
       <div className="post-container">
         <div className="post-name-holder">Name</div>
@@ -37,7 +33,7 @@ function mapStateToProps({ fetchPostDetails }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPost: (id) => dispatch(getPost(id))
+    getPost: (data) => dispatch(getPost(data))
   }
 }
 

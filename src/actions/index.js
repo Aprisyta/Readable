@@ -41,7 +41,7 @@ export function recievePost ( post ) {
 
 export const getPost = (id) => dispatch => (
   PostsAPI
-      .getPostDetail()
+      .getPostDetail(id)
       .then(post => dispatch(recievePost(post)))
 );
 
