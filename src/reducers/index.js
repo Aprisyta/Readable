@@ -5,8 +5,9 @@ import {
   GET_POST,
   GET_COMMENT
 } from '../actions'
+import { combineReducers } from 'redux'
 
-function fetchPosts ( state = [], action ) {
+function fetchPosts ( state = [] , action ) {
   let returnValue = []
   switch (action.type) {
     case GET_ALL_POSTS:
@@ -17,4 +18,18 @@ function fetchPosts ( state = [], action ) {
   }
 }
 
-export default fetchPosts
+function fetchPostDetails ( state = [], action ) {
+  let returnValue = []
+  switch (action) {
+    case GET_POST:
+      returnValue = action.post
+      return returnValue
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({
+  fetchPosts,
+  fetchPostDetails,
+})

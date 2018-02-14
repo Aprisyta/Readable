@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import AddPost from './AddPost'
 import Post from './Post'
-import * as PostsAPI from '../utils/PostsAPI'
+// import * as PostsAPI from '../utils/PostsAPI'
 import { connect } from 'react-redux'
+import { getAllPosts } from '../actions'
 
 class App extends Component {
 
@@ -15,11 +16,16 @@ class App extends Component {
   }
 
   componentDidMount() {
-    PostsAPI.getAllPosts().then((posts) => {
-      this.setState({
-        posts,
-      })
-    })
+    console.log("Within App");
+    this.props.getAllPosts().then((res) => this.setState({
+      posts: res.posts
+    }))
+
+    // PostsAPI.getAllPosts().then((posts) => {
+    //   this.setState({
+    //     posts,
+    //   })
+    // })
 
     // PostsAPI.getAllCategories().then((categories) => {
     //   this.setState({
@@ -84,6 +90,7 @@ class App extends Component {
 
   render() {
     console.log(this.state.posts);
+    const { posts } = this.state;
     return (
       <div className="App">
         <div className="fixed-container">
@@ -92,12 +99,26 @@ class App extends Component {
           </header>
           <AddPost />
         </div>
-        <Post />
-        <Post />
-        <Post />
+        {
+          posts.map((post) => (
+            <li className="post-list" key={post.id}>
+              <Post id={post.id}/>
+            </li>
+          ))
+        }
       </div>
     );
   }
 }
 
-export default connect()(App);
+function mapStateToProps({ fetchPosts }) {
+  return { posts: fetchPosts }
+}
+
+function mapDispatchToProps(dispatch) {
+  return{
+    getAllPosts: () => dispatch(getAllPosts())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
