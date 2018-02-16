@@ -83,8 +83,6 @@ class App extends Component {
     // PostsAPI.getCommentsOnPost(id).then((comments) => {
     //   this.setState({ comments })
     // })
-
-
   }
 
   render() {

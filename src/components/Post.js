@@ -17,11 +17,13 @@ class Post extends Component {
   }
 
   render(){
+    const { author, body, category, commentCount, timestamp, title , voteScore } = this.state.post;
+    // let d = new Date(timestamp)
     return(
       <div className="post-container">
-        <div className="post-name-holder">Name</div>
-        <div>Time</div>
-        <div>Post</div>
+        <div className="post-name-holder">{author}</div>
+        <div>{new Date(timestamp)}</div>
+        <div>{body}</div>
       </div>
     )
   }
