@@ -78,6 +78,50 @@ body {
 .post-container div {
   padding: 0 40px;
 }
-.post-name-holder {
-  font-size: x-large;
+
+.post-header {
+  margin-bottom: 6px;
 }
+
+.post-author-holder {
+  font-weight: bolder;
+  font-size: large;
+}
+
+.post-date-and-topic-holder {
+  font-size: x-small;
+}
+
+.post-title-holder {
+  font-weight: bolder;
+  font-size: larger;
+}
+
+.post-body-holder {
+  font-size: large;
+}
+
+.post-container button {
+  width: 33%;
+  height: 20px;
+  color: white;
+  background-color: #6a1b9a;
+  font-family: inherit;
+  font-weight: bolder;
+  border: #6a1b9a;
+}
+
+.middle-button {
+  margin: 0 0.5%;
+}
+
+.post-vote-comment-show {
+  font-size: smaller;
+  margin-bottom: 6px;
+  text-align: right;
+}
+/* {
+  border-bottom-color: #e9e;
+  border-bottom-style: inset;
+  border-bottom-width: thin;
+} */
