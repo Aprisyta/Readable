@@ -5,6 +5,7 @@ export const GET_ALL_POSTS = 'GET_ALL_POSTS'
 export const GET_POST = 'GET_POST'
 export const GET_ALL_COMMENTS = 'GET_ALL_COMMENTS'
 export const GET_COMMENT = 'GET_COMMENT'
+export const VOTE_ON_POST = 'VOTE_ON_POST'
 
 export function recieveAllCategories (categories) {
   return {
@@ -54,7 +55,7 @@ export function recieveAllComments (comments) {
 
 export const getAllComments = (postID) => dispatch => (
   PostsAPI
-      .getCommentsOnPost()
+      .getCommentsOnPost(postID)
       .then(comments => dispatch(recieveAllComments(comments)))
 );
 
@@ -67,6 +68,12 @@ export function recieveComment ( comment ) {
 
 export const getComment = (commentID) => dispatch => (
   PostsAPI
-      .getCommentByID()
+      .getCommentByID(commentID)
       .then(comment => dispatch(recieveComment(comment)))
+);
+
+export const postVoteOnPost = (postID, vote) => dispatch => (
+  PostsAPI
+      .voteOnPost(postID, vote)
+      .then((post) => dispatch(recievePost(post)))
 );

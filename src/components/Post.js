@@ -1,29 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getPost } from '../actions'
+import { getPost, getAllComments, postVoteOnPost } from '../actions'
 import LikeIcon from 'react-icons/lib/fa/thumbs-o-up'
 import DislikeIcon from 'react-icons/lib/fa/thumbs-o-down'
 import CommentIcon from 'react-icons/lib/fa/comments-o'
 
 class Post extends Component {
+
   state = {
-    post: []
+    post: [],
+    showCommentsSection: false,
   }
 
   componentDidMount () {
     const { id } = this.props
     this.props.getPost( id ).then((res) => {
-        this.setState({
-          post: res.post
+      this.setState({
+        post: res.post
       })
     })
   }
 
+  showComments = () => {
+    this.setState({
+      showCommentsSection: true
+    })
+  }
+
+  vote = (postID, voteScore) => {
+    this.props.postVoteOnPost( postID, voteScore ).then((res) => {
+      this.setState({ post: res.post })
+    })
+  }
+
   render(){
-    const { author, body, category, commentCount, timestamp, title , voteScore } = this.state.post;
-    console.log(this.state.post);
+    const { id, author, body, category, commentCount, timestamp, title , voteScore } = this.state.post;
+    const { getAllComments, comments } = this.props
+    const { showCommentsSection } = this.state
     const date = new Date(timestamp)
-    console.log(date);
     const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     const year = date.getFullYear();
     const month = months[date.getMonth()];
@@ -44,28 +58,48 @@ class Post extends Component {
           {`${voteScore} likes || ${commentCount} comments`}
         </div>
         <div className="post-button-container">
-          <button>
+          <button
+            onClick={() => this.vote(id, "upVote")}>
             <LikeIcon />
           </button>
-          <button className="middle-button">
+          <button
+            className="middle-button"
+            onClick={() => this.vote(id, "downVote")}>
             <DislikeIcon />
           </button>
-          <button>
+          <button
+            onClick={() => {
+              getAllComments(id)
+              this.showComments()
+            }}>
             <CommentIcon />
           </button>
         </div>
+        <div>
+          {
+            showCommentsSection === true
+              ? console.log(comments)
+              : console.log("No comments")
+          }
+        </div>
+
       </div>
     )
   }
 }
 
-function mapStateToProps({ fetchPostDetails }) {
-  return { posts: fetchPostDetails }
+function mapStateToProps({ fetchPostDetails, fetchCommentsOnPostUsingPostID }) {
+  return {
+    post: fetchPostDetails,
+    comments: fetchCommentsOnPostUsingPostID,
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPost: (data) => dispatch(getPost(data))
+    getPost: (postID) => dispatch(getPost(postID)),
+    getAllComments: (postID) => dispatch(getAllComments(postID)),
+    postVoteOnPost: (postID, vote) => dispatch(postVoteOnPost(postID, vote))
   }
 }
 

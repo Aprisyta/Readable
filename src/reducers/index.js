@@ -3,7 +3,8 @@ import {
   GET_ALL_POSTS,
   GET_ALL_COMMENTS,
   GET_POST,
-  GET_COMMENT
+  GET_COMMENT,
+  VOTE_ON_POST,
 } from '../actions'
 import { combineReducers } from 'redux'
 
@@ -11,17 +12,28 @@ function fetchPosts ( state = [] , action ) {
   let returnValue = []
   switch (action.type) {
     case GET_ALL_POSTS:
-        returnValue = action.posts
-        return returnValue
+      returnValue = action.posts
+      return returnValue
     default:
       return state;
   }
 }
 
 function fetchPostDetails ( state = [], action ) {
+  let returnValue = []
   switch (action.type) {
     case GET_POST:
-      return action.post
+      returnValue = action.post
+      return returnValue
+    default:
+      return state;
+  }
+}
+
+function fetchCommentsOnPostUsingPostID ( state = [], action ) {
+  switch (action.type) {
+    case GET_ALL_COMMENTS:
+      return action.comments
     default:
       return state;
   }
@@ -30,4 +42,5 @@ function fetchPostDetails ( state = [], action ) {
 export default combineReducers({
   fetchPosts,
   fetchPostDetails,
+  fetchCommentsOnPostUsingPostID,
 })
