@@ -39,8 +39,18 @@ function fetchCommentsOnPostUsingPostID ( state = [], action ) {
   }
 }
 
+function fetchCommentByID ( state = [], action ) {
+  switch (action.type) {
+    case GET_COMMENT:
+      return action.comment
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   fetchPosts,
   fetchPostDetails,
   fetchCommentsOnPostUsingPostID,
+  fetchCommentByID,
 })

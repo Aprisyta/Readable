@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getPost, getAllComments, postVoteOnPost } from '../actions'
+import Comments from './Comments'
+import { getPost, postVoteOnPost, getAllComments } from '../actions'
 import LikeIcon from 'react-icons/lib/fa/thumbs-o-up'
 import DislikeIcon from 'react-icons/lib/fa/thumbs-o-down'
 import CommentIcon from 'react-icons/lib/fa/comments-o'
@@ -10,6 +11,7 @@ class Post extends Component {
   state = {
     post: [],
     showCommentsSection: false,
+    comments: [],
   }
 
   componentDidMount () {
@@ -21,10 +23,11 @@ class Post extends Component {
     })
   }
 
-  showComments = () => {
-    this.setState({
+  showComments = (postID) => {
+    this.props.getAllComments(postID).then((res) => this.setState({
+      comments: res.comments,
       showCommentsSection: true
-    })
+    }))
   }
 
   vote = (postID, voteScore) => {
@@ -35,8 +38,9 @@ class Post extends Component {
 
   render(){
     const { id, author, body, category, commentCount, timestamp, title , voteScore } = this.state.post;
-    const { getAllComments, comments } = this.props
-    const { showCommentsSection } = this.state
+    const { getAllComments } = this.props
+    const { showCommentsSection, comments } = this.state
+    console.log(comments);
     const date = new Date(timestamp)
     const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     const year = date.getFullYear();
@@ -69,20 +73,20 @@ class Post extends Component {
           </button>
           <button
             onClick={() => {
-              getAllComments(id)
-              this.showComments()
+              this.showComments(id)
             }}>
             <CommentIcon />
           </button>
         </div>
-        <div>
+        <div className="comment-section">
           {
             showCommentsSection === true
-              ? console.log(comments)
+              ? comments.map((comment) => (
+                  <Comments commentID={comment.id}/>
+                ))
               : console.log("No comments")
           }
         </div>
-
       </div>
     )
   }
@@ -98,8 +102,8 @@ function mapStateToProps({ fetchPostDetails, fetchCommentsOnPostUsingPostID }) {
 function mapDispatchToProps(dispatch) {
   return {
     getPost: (postID) => dispatch(getPost(postID)),
+    postVoteOnPost: (postID, vote) => dispatch(postVoteOnPost(postID, vote)),
     getAllComments: (postID) => dispatch(getAllComments(postID)),
-    postVoteOnPost: (postID, vote) => dispatch(postVoteOnPost(postID, vote))
   }
 }
 

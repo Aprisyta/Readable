@@ -83,12 +83,12 @@ body {
   margin-bottom: 6px;
 }
 
-.post-author-holder {
+.post-author-holder, .comment-author-holder {
   font-weight: bolder;
   font-size: large;
 }
 
-.post-date-and-topic-holder {
+.post-date-and-topic-holder, .comment-date-holder {
   font-size: x-small;
 }
 
@@ -119,6 +119,18 @@ body {
   font-size: smaller;
   margin-bottom: 6px;
   text-align: right;
+}
+
+.comment-section {
+  margin-top: 6px;
+}
+
+.comment-holder {
+  padding: 0 !important;
+}
+
+.comment-header, .comment-body-holder {
+  padding: inherit !important;
 }
 /* {
   border-bottom-color: #e9e;
