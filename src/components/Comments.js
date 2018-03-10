@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getComment } from '../actions'
+import DropDownMenu from './DropDownMenu'
 
 class Comments extends Component {
 

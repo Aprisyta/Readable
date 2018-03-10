@@ -5,6 +5,7 @@ import { getPost, postVoteOnPost, getAllComments } from '../actions'
 import LikeIcon from 'react-icons/lib/fa/thumbs-o-up'
 import DislikeIcon from 'react-icons/lib/fa/thumbs-o-down'
 import CommentIcon from 'react-icons/lib/fa/comments-o'
+import DropDownMenu from './DropDownMenu'
 
 class Post extends Component {
 
@@ -50,12 +51,13 @@ class Post extends Component {
     const min = date.getMinutes();
     return(
       <div className="post-container">
-        <div className="post-header">
+        <p className="post-header">
           <span className="post-author-holder">{author}</span>
           <span className="post-date-and-topic-holder">
             {` posted on ${category} dated ${month} ${dt}, ${year} at ${hour}:${min}`}
           </span>
-        </div>
+          <DropDownMenu />
+        </p>
         <div className="post-title-holder">{title}</div>
         <div className="post-body-holder">{body}</div>
         <div className="post-vote-comment-show">

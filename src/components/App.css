@@ -83,7 +83,14 @@ body {
   margin-bottom: 6px;
 }
 
+/* .post-author-and-dropdown-menu {
+  margin: 0;
+  width: 100%;
+} */
+
 .post-author-holder, .comment-author-holder {
+  /* padding: 0 !important;
+  width: 30%; */
   font-weight: bolder;
   font-size: large;
 }
@@ -132,6 +139,10 @@ body {
 .comment-header, .comment-body-holder {
   padding: inherit !important;
 }
+
+/* .ellipsis-holder {
+  width: 70%;
+} */
 /* {
   border-bottom-color: #e9e;
   border-bottom-style: inset;
