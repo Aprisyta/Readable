@@ -51,13 +51,13 @@ class Post extends Component {
     const min = date.getMinutes();
     return(
       <div className="post-container">
-        <p className="post-header">
+        <div className="post-header">
           <span className="post-author-holder">{author}</span>
           <span className="post-date-and-topic-holder">
             {` posted on ${category} dated ${month} ${dt}, ${year} at ${hour}:${min}`}
           </span>
-          <DropDownMenu />
-        </p>
+          <DropDownMenu context="Post"/>
+        </div>
         <div className="post-title-holder">{title}</div>
         <div className="post-body-holder">{body}</div>
         <div className="post-vote-comment-show">

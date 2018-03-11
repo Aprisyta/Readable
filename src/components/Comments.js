@@ -16,14 +16,7 @@ class Comments extends Component {
       comment: res.comment
     }))
   }
-  // author:"thingtwo"
-  // body:"Hi there! I am a COMMENT."
-  // deleted:false
-  // id:"894tuq4ut84ut8v4t8wun89g"
-  // parentDeleted:false
-  // parentId:"8xf0y6ziyjabvozdd253nd"
-  // timestamp:1468166872634
-  // voteScore:6
+
   render() {
     console.log(this.state.comment);
     const { comment } = this.state
@@ -42,6 +35,7 @@ class Comments extends Component {
           <span className="comment-date-holder">
             {` commented on ${month} ${dt}, ${year} at ${hour}:${min}`}
           </span>
+          <DropDownMenu context="Comment"/>
         </div>
         <div className="comment-body-holder">{body}</div>
       </div>
