@@ -17,11 +17,21 @@ class Post extends Component {
 
   componentDidMount () {
     const { id } = this.props
+    console.log("HiiiComponent Mount " + id);
     this.props.getPost( id ).then((res) => {
       this.setState({
         post: res.post,
       })
     })
+  }
+
+  componentWillReceiveProps (nextProps) {
+    let currentPost;
+    if ( this.props.post.id && this.props.post.id === this.state.post.id ) {
+      this.setState({
+        post: this.props.post,
+      })
+    }
   }
 
   showComments = (postID) => {
@@ -37,6 +47,7 @@ class Post extends Component {
   }
 
   render(){
+    console.log(this.state.post);
     const { id, author, body, category, commentCount, timestamp, title , voteScore } = this.state.post;
     const { getAllComments, comments } = this.props
     const { showCommentsSection } = this.state

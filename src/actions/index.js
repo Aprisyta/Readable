@@ -82,7 +82,7 @@ export const postToDeleteComment = (commentID, postID) => dispatch => (
   PostsAPI
     .deleteComment(commentID)
     .then(dispatch(getAllComments(postID)))
-    .then(dispatch(getPost(postID))
+    .then(dispatch(getPost(postID)))
 );
 
 export const postVoteOnPost = (postID, vote) => dispatch => (
