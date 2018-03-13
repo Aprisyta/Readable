@@ -40,10 +40,16 @@ export function recievePost ( post ) {
   }
 }
 
-export const getPost = (id) => dispatch => (
+export const getPost = (postID) => dispatch => (
   PostsAPI
-      .getPostDetail(id)
-      .then(post => dispatch(recievePost(post)))
+    .getPostDetail(postID)
+    .then(post => dispatch(recievePost(post)))
+);
+
+export const postToDeletePost = (postID) => dispatch => (
+  PostsAPI
+    .deletePost(postID)
+    .then(dispatch(getAllPosts()))
 );
 
 export function recieveAllComments (comments) {
@@ -70,6 +76,13 @@ export const getComment = (commentID) => dispatch => (
   PostsAPI
       .getCommentByID(commentID)
       .then(comment => dispatch(recieveComment(comment)))
+);
+
+export const postToDeleteComment = (commentID, postID) => dispatch => (
+  PostsAPI
+    .deleteComment(commentID)
+    .then(dispatch(getAllComments(postID)))
+    .then(dispatch(getPost(postID))
 );
 
 export const postVoteOnPost = (postID, vote) => dispatch => (

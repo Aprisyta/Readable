@@ -19,14 +19,13 @@ class Post extends Component {
     const { id } = this.props
     this.props.getPost( id ).then((res) => {
       this.setState({
-        post: res.post
+        post: res.post,
       })
     })
   }
 
   showComments = (postID) => {
     this.props.getAllComments(postID).then((res) => this.setState({
-      comments: res.comments,
       showCommentsSection: true
     }))
   }
@@ -39,9 +38,8 @@ class Post extends Component {
 
   render(){
     const { id, author, body, category, commentCount, timestamp, title , voteScore } = this.state.post;
-    const { getAllComments } = this.props
-    const { showCommentsSection, comments } = this.state
-    console.log(comments);
+    const { getAllComments, comments } = this.props
+    const { showCommentsSection } = this.state
     const date = new Date(timestamp)
     const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     const year = date.getFullYear();
@@ -56,7 +54,7 @@ class Post extends Component {
           <span className="post-date-and-topic-holder">
             {` posted on ${category} dated ${month} ${dt}, ${year} at ${hour}:${min}`}
           </span>
-          <DropDownMenu context="Post"/>
+          <DropDownMenu context="Post" postID={id} commentID={id}/>
         </div>
         <div className="post-title-holder">{title}</div>
         <div className="post-body-holder">{body}</div>
@@ -84,7 +82,7 @@ class Post extends Component {
           {
             showCommentsSection === true
               ? comments.map((comment) => (
-                  <Comments commentID={comment.id}/>
+                  <Comments commentID={comment.id} postID={id} key={comment.id}/>
                 ))
               : console.log("No comments")
           }

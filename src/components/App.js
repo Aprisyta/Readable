@@ -16,6 +16,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log("I am updayed");
     this.props.getAllPosts().then((res) => this.setState({
       posts: res.posts
     }))

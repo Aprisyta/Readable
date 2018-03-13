@@ -10,7 +10,6 @@ class Comments extends Component {
   }
 
   componentDidMount () {
-    console.log("HI");
     const { commentID } = this.props
     this.props.getComment(commentID).then((res) => this.setState({
       comment: res.comment
@@ -21,6 +20,7 @@ class Comments extends Component {
     console.log(this.state.comment);
     const { comment } = this.state
     const { author, body, id, timestamp, voteScore } = this.state.comment
+    const { postID } = this.props
     const date = new Date(timestamp)
     const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     const year = date.getFullYear();
@@ -35,7 +35,7 @@ class Comments extends Component {
           <span className="comment-date-holder">
             {` commented on ${month} ${dt}, ${year} at ${hour}:${min}`}
           </span>
-          <DropDownMenu context="Comment"/>
+          <DropDownMenu context="Comment" commentID={id} postID={postID}/>
         </div>
         <div className="comment-body-holder">{body}</div>
       </div>
@@ -43,9 +43,10 @@ class Comments extends Component {
   }
 }
 
-function mapStateToProps({ fetchCommentByID }) {
+function mapStateToProps({ fetchCommentByID, fetchCommentsOnPostUsingPostID }) {
   return {
     comment: fetchCommentByID,
+    comments: fetchCommentsOnPostUsingPostID,
   }
 }
 
