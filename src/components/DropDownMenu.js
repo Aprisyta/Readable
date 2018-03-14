@@ -30,9 +30,17 @@ class DropDownMenu extends Component {
   render() {
     const { isElipsisClicked } = this.state
     const { context, postID, posts, commentID } = this.props
+    let bgColor
+    context === "Post"
+      ? bgColor = "#fff"
+      : bgColor = "#f5f5f5"
     return (
       <div className="ellipsis-holder">
-        <span className="ellipsis-button-holder" onClick={this.showDropDown}>
+        <span
+          className="ellipsis-button-holder"
+          onClick={this.showDropDown}
+          style={{backgroundColor: `${bgColor}`}}
+        >
           <MultipleOption height="2em" color="#6a1b9a"/>
         </span>
         <span>

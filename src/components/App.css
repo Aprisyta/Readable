@@ -1,5 +1,6 @@
 body {
-  line-height: 1.5
+  line-height: 1.5;
+  background-color: #f5f5f5;
 }
 
 .post-list {
@@ -68,6 +69,7 @@ body {
 }
 
 .post-container {
+  background-color: #fff;
   margin: 3% 15%;
   width: 70%;
   text-align: left;
@@ -127,7 +129,7 @@ body {
   margin: 0 0.5%;
 }
 
-.post-vote-comment-show {
+.post-vote-comment-show, .comment-vote-show {
   font-size: smaller;
   margin-bottom: 6px;
   text-align: right;
@@ -138,10 +140,12 @@ body {
 }
 
 .comment-holder {
-  padding: 0 !important;
+  border-radius: 50px;
+  background-color: #f5f5f5;
+  padding: 0 20px !important;
 }
 
-.comment-header, .comment-body-holder {
+.comment-header, .comment-body-holder, .comment-vote-show {
   padding: inherit !important;
 }
 
@@ -154,7 +158,6 @@ body {
 
 .ellipsis-button-holder {
   outline: none !important;
-  background-color: white !important;
 }
 
 .dropdown-content-holder {

@@ -46,6 +46,12 @@ export const getPost = (postID) => dispatch => (
     .then(post => dispatch(recievePost(post)))
 );
 
+export const postVoteOnPost = (postID, vote) => dispatch => (
+  PostsAPI
+      .voteOnPost(postID, vote)
+      .then((post) => console.log(post))
+);
+
 export const postToDeletePost = (postID) => dispatch => (
   PostsAPI
     .deletePost(postID)
@@ -78,15 +84,15 @@ export const getComment = (commentID) => dispatch => (
       .then(comment => dispatch(recieveComment(comment)))
 );
 
+export const postVoteOnComment = ( commentID, vote ) => dispatch => (
+  PostsAPI
+    .voteOnComment(commentID, vote)
+    .then((comment) => dispatch(recieveComment(comment)))
+);
+
 export const postToDeleteComment = (commentID, postID) => dispatch => (
   PostsAPI
     .deleteComment(commentID)
     .then(dispatch(getAllComments(postID)))
     .then(dispatch(getPost(postID)))
-);
-
-export const postVoteOnPost = (postID, vote) => dispatch => (
-  PostsAPI
-      .voteOnPost(postID, vote)
-      .then((post) => dispatch(recievePost(post)))
 );

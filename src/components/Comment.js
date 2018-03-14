@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getComment } from '../actions'
+import { getComment, postVoteOnComment } from '../actions'
 import DropDownMenu from './DropDownMenu'
+import LikeIcon from 'react-icons/lib/fa/thumbs-o-up'
+import DislikeIcon from 'react-icons/lib/fa/thumbs-o-down'
 
-class Comments extends Component {
+class Comment extends Component {
 
   state = {
     comment: [],
@@ -16,8 +18,13 @@ class Comments extends Component {
     }))
   }
 
+  vote = (commentID, voteScore) => {
+    this.props.postVoteOnComment( commentID, voteScore ).then((res) => {
+      this.setState({ comment: res.comment })
+    })
+  }
+
   render() {
-    console.log(this.state.comment);
     const { comment } = this.state
     const { author, body, id, timestamp, voteScore } = this.state.comment
     const { postID } = this.props
@@ -38,6 +45,20 @@ class Comments extends Component {
           <DropDownMenu context="Comment" commentID={id} postID={postID}/>
         </div>
         <div className="comment-body-holder">{body}</div>
+        <div className="comment-vote-show">
+          {`${voteScore} likes`}
+        </div>
+        <div className="comment-button-container">
+          <button
+            onClick={() => this.vote(id, "upVote")}>
+            <LikeIcon />
+          </button>
+          <button
+            className="middle-button"
+            onClick={() => this.vote(id, "downVote")}>
+            <DislikeIcon />
+          </button>
+        </div>
       </div>
     )
   }
@@ -53,7 +74,8 @@ function mapStateToProps({ fetchCommentByID, fetchCommentsOnPostUsingPostID }) {
 function mapDispatchToProps(dispatch) {
   return {
     getComment: (commentID) => dispatch(getComment(commentID)),
+    postVoteOnComment: (commentID, vote) => dispatch(postVoteOnComment(commentID, vote)),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comments);
+export default connect(mapStateToProps, mapDispatchToProps)(Comment);

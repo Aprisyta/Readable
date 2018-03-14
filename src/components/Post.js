@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Comments from './Comments'
+import Comment from './Comment'
 import { getPost, postVoteOnPost, getAllComments } from '../actions'
 import LikeIcon from 'react-icons/lib/fa/thumbs-o-up'
 import DislikeIcon from 'react-icons/lib/fa/thumbs-o-down'
@@ -93,7 +93,7 @@ class Post extends Component {
           {
             showCommentsSection === true
               ? comments.map((comment) => (
-                  <Comments commentID={comment.id} postID={id} key={comment.id}/>
+                  <Comment commentID={comment.id} postID={id} key={comment.id}/>
                 ))
               : console.log("No comments")
           }
