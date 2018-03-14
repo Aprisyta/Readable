@@ -45,19 +45,21 @@ class Comment extends Component {
           <DropDownMenu context="Comment" commentID={id} postID={postID}/>
         </div>
         <div className="comment-body-holder">{body}</div>
-        <div className="comment-vote-show">
-          {`${voteScore} likes`}
-        </div>
-        <div className="comment-button-container">
-          <button
-            onClick={() => this.vote(id, "upVote")}>
-            <LikeIcon />
-          </button>
-          <button
-            className="middle-button"
-            onClick={() => this.vote(id, "downVote")}>
-            <DislikeIcon />
-          </button>
+        <div className="comment-button-and-likes-display-holder">
+          <div className="comment-button-container">
+            <button
+              onClick={() => this.vote(id, "upVote")}>
+              <LikeIcon />
+            </button>
+            <button
+              className="middle-button"
+              onClick={() => this.vote(id, "downVote")}>
+              <DislikeIcon />
+            </button>
+          </div>
+          <div className="comment-vote-show">
+            {`${voteScore} likes`}
+          </div>
         </div>
       </div>
     )

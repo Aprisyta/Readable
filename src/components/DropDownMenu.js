@@ -18,7 +18,6 @@ class DropDownMenu extends Component {
   }
 
   remove = (postID, commentID, context) => {
-    console.log(postID);
     if(context === "Post") {
       this.props.deletePost(postID)
     }
@@ -41,7 +40,10 @@ class DropDownMenu extends Component {
           onClick={this.showDropDown}
           style={{backgroundColor: `${bgColor}`}}
         >
-          <MultipleOption height="2em" color="#6a1b9a"/>
+          <MultipleOption
+            height="2em"
+            color="#6a1b9a"
+          />
         </span>
         <span>
           {
@@ -50,7 +52,10 @@ class DropDownMenu extends Component {
                   <ul>
                     <li >Edit {context}</li>
                     <li
-                      onClick={() => this.remove(postID, commentID, context)}>Delete {context}</li>
+                      onClick={() => this.remove(postID, commentID, context)}
+                    >
+                      Delete {context}
+                    </li>
                   </ul>
                 </div>
               : null

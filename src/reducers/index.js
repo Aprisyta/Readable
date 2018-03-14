@@ -34,7 +34,6 @@ function fetchCommentsOnPostUsingPostID ( state = [], action ) {
   let returnValue = []
   switch (action.type) {
     case GET_ALL_COMMENTS:
-      console.log(action.comments);
       returnValue = action.comments
       return returnValue
     default:
