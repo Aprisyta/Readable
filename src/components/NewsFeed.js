@@ -17,7 +17,7 @@ class NewsFeed extends Component {
   }
 
   closeAddPostModal = () => {
-    this.setState({ addPostModalOpen: false})
+    this.setState({ addPostModalOpen: false })
   }
 
   componentDidMount() {

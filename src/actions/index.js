@@ -21,7 +21,6 @@ export const getAllCategories = () => dispatch => (
 );
 
 export function recieveAllPosts (posts) {
-  console.log(posts);
   return {
     type: GET_ALL_POSTS,
     posts
@@ -37,10 +36,12 @@ export const getAllPosts = () => dispatch => (
 export const addPost = ( body ) => dispatch => (
   PostsAPI
     .addPost(body)
-    .then(posts => dispatch(recieveAllPosts(posts)))
+    .then(post => dispatch(recievePost(post)))
+    .then(() => dispatch(getAllPosts()))
 );
 
 export function recievePost ( post ) {
+  console.log(post);
   return {
     type: GET_POST,
     post,
