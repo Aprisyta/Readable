@@ -25,7 +25,6 @@ class Comment extends Component {
   }
 
   render() {
-    const { comment } = this.state
     const { author, body, id, timestamp, voteScore } = this.state.comment
     const { postID } = this.props
     const date = new Date(timestamp)
@@ -48,12 +47,16 @@ class Comment extends Component {
         <div className="comment-button-and-likes-display-holder">
           <div className="comment-button-container">
             <button
-              onClick={() => this.vote(id, "upVote")}>
+              onClick={() => this.vote(id, "upVote")}
+              title="Like"
+            >
               <LikeIcon />
             </button>
             <button
               className="middle-button"
-              onClick={() => this.vote(id, "downVote")}>
+              onClick={() => this.vote(id, "downVote")}
+              title="Dislike"
+            >
               <DislikeIcon />
             </button>
           </div>

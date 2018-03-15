@@ -28,7 +28,7 @@ class DropDownMenu extends Component {
 
   render() {
     const { isElipsisClicked } = this.state
-    const { context, postID, posts, commentID } = this.props
+    const { context, postID, commentID } = this.props
     let bgColor
     context === "Post"
       ? bgColor = "#fff"

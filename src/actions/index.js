@@ -21,6 +21,7 @@ export const getAllCategories = () => dispatch => (
 );
 
 export function recieveAllPosts (posts) {
+  console.log(posts);
   return {
     type: GET_ALL_POSTS,
     posts
@@ -31,6 +32,12 @@ export const getAllPosts = () => dispatch => (
   PostsAPI
       .getAllPosts()
       .then(posts => dispatch(recieveAllPosts(posts)))
+);
+
+export const addPost = ( body ) => dispatch => (
+  PostsAPI
+    .addPost(body)
+    .then(posts => dispatch(recieveAllPosts(posts)))
 );
 
 export function recievePost ( post ) {
@@ -49,7 +56,7 @@ export const getPost = (postID) => dispatch => (
 export const postVoteOnPost = (postID, vote) => dispatch => (
   PostsAPI
       .voteOnPost(postID, vote)
-      .then((post) => console.log(post))
+      .then((post) => dispatch(recievePost(post)))
 );
 
 export const postToDeletePost = (postID) => dispatch => (

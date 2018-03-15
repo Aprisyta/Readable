@@ -1,59 +1,29 @@
 import React, { Component } from 'react';
 import Post from './Post'
-// import * as PostsAPI from '../utils/PostsAPI'
+import Modal from 'react-modal'
 import { connect } from 'react-redux'
 import { getAllPosts } from '../actions'
+import AddPost from 'react-icons/lib/md/add'
+import AddEditPost from './AddEditPost'
 
 class NewsFeed extends Component {
+
   state = {
-    categories: [],
-    posts: [],
+    addPostModalOpen: false,
+  }
+
+  openAddPostModal = () => {
+    this.setState({ addPostModalOpen: true})
+  }
+
+  closeAddPostModal = () => {
+    this.setState({ addPostModalOpen: false})
   }
 
   componentDidMount() {
-    this.props.getAllPosts().then((res) => this.setState({
-      posts: res.posts
-    }))
-
-    // PostsAPI.getAllPosts().then((posts) => {
-    //   this.setState({
-    //     posts,
-    //   })
-    // })
-
-    // PostsAPI.getAllCategories().then((categories) => {
-    //   this.setState({
-    //     categories,
-    //   })
-    // })
+    this.props.getAllPosts()
 
     // PostsAPI.getByCategory(`react`).then((posts) => {
-    //   this.setState({
-    //     posts,
-    //   })
-    // })
-
-    // const body = {
-    //   id : "uguyh789tdd67r6",
-    //   timestamp : Date.now(),
-    //   title : "Yo new post",
-    //   body : "Hi post 3",
-    //   author : "Apri",
-    //   category : "udacity",
-    // }
-    // PostsAPI.addPost(body)
-
-    // const id = "8xf0y6ziyjabvozdd253nd"
-    // PostsAPI.getPostDetail(id).then((post) => {
-    //   this.setState({
-    //     post,
-    //   })
-    // })
-
-    // const id = "8xf0y6ziyjabvozdd253nd"
-    // const str = "upVote"
-    // PostsAPI.voteOnPost(id, str)
-    // PostsAPI.getAllPosts().then((posts) => {
     //   this.setState({
     //     posts,
     //   })
@@ -70,18 +40,11 @@ class NewsFeed extends Component {
     //     posts,
     //   })
     // })
-
-    // const id = "6ni6ok3ym7mf1p33lnez"
-    // PostsAPI.deletePost(id)
-
-    // const id = "8xf0y6ziyjabvozdd253nd"
-    // PostsAPI.getCommentsOnPost(id).then((comments) => {
-    //   this.setState({ comments })
-    // })
   }
 
   render() {
     const { posts } = this.props;
+    const { addPostModalOpen } = this.state
     return (
       <div>
         {
@@ -91,13 +54,39 @@ class NewsFeed extends Component {
             </li>
           ))
         }
+        <div className="open-add-post">
+          <button
+            className="icon-add"
+            title="Add post"
+            style={{border:'none', boxShadow:'none', padding:0}}
+          >
+            <AddPost
+              className="icon-add"
+              color="#fff"
+              onClick={() => this.openAddPostModal()}
+            />
+          </button>
+      </div>
+        <Modal
+          className='modal'
+          overlayClassName='overlay'
+          content='Modal'
+          isOpen={addPostModalOpen}
+          onRequestClose={this.closeAddPostModal}
+          ariaHideApp={false}
+        >
+          <AddEditPost />
+        </Modal>
       </div>
     )
   }
 }
 
-function mapStateToProps({ fetchPosts }) {
-  return { posts: fetchPosts }
+function mapStateToProps({ fetchPosts, fetchCategories }) {
+  return {
+    posts: fetchPosts,
+    categories: fetchCategories,
+  }
 }
 
 function mapDispatchToProps(dispatch) {

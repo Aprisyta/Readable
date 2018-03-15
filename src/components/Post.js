@@ -25,7 +25,6 @@ class Post extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    let currentPost;
     if ( this.props.post.id && this.props.post.id === this.state.post.id ) {
       this.setState({
         post: this.props.post,
@@ -47,7 +46,7 @@ class Post extends Component {
 
   render(){
     const { id, author, body, category, commentCount, timestamp, title , voteScore } = this.state.post;
-    const { getAllComments, comments } = this.props
+    const { comments } = this.props
     const { showCommentsSection } = this.state
     const date = new Date(timestamp)
     const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -72,18 +71,22 @@ class Post extends Component {
         </div>
         <div className="post-button-container">
           <button
-            onClick={() => this.vote(id, "upVote")}>
+            onClick={() => this.vote(id, "upVote")}
+            title="Like"
+          >
             <LikeIcon />
           </button>
           <button
             className="middle-button"
-            onClick={() => this.vote(id, "downVote")}>
+            onClick={() => this.vote(id, "downVote")}
+            title="Dislike"
+          >
             <DislikeIcon />
           </button>
           <button
-            onClick={() => {
-              this.showComments(id)
-            }}>
+            onClick={() => {this.showComments(id)}}
+            title="Comment"
+          >
             <CommentIcon />
           </button>
         </div>

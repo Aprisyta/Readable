@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
+import { connect } from 'react-redux'
 // import AddPost from './AddPost'
 import NewsFeed from './NewsFeed'
+import { getAllCategories } from '../actions'
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.getAllCategories()
+  }
 
   render() {
     return (
@@ -19,4 +25,10 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapDispatchToProps(dispatch) {
+  return {
+    getAllCategories: () => dispatch(getAllCategories())
+  }
+}
+
+export default connect(null, mapDispatchToProps)(App);

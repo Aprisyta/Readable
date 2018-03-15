@@ -4,9 +4,19 @@ import {
   GET_ALL_COMMENTS,
   GET_POST,
   GET_COMMENT,
-  VOTE_ON_POST,
 } from '../actions'
 import { combineReducers } from 'redux'
+
+function fetchCategories ( state = [] , action ) {
+  let returnValue = []
+  switch (action.type) {
+    case GET_ALL_CATEGORIES:
+      returnValue = action.categories
+      return returnValue
+    default:
+      return state
+  }
+}
 
 function fetchPosts ( state = [] , action ) {
   let returnValue = []
@@ -15,7 +25,7 @@ function fetchPosts ( state = [] , action ) {
       returnValue = action.posts
       return returnValue
     default:
-      return state;
+      return state
   }
 }
 
@@ -51,6 +61,7 @@ function fetchCommentByID ( state = [], action ) {
 }
 
 export default combineReducers({
+  fetchCategories,
   fetchPosts,
   fetchPostDetails,
   fetchCommentsOnPostUsingPostID,
