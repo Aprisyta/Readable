@@ -75,7 +75,7 @@ class NewsFeed extends Component {
           onRequestClose={this.closeAddPostModal}
           ariaHideApp={false}
         >
-          <AddEditPost />
+          <AddEditPost context="Add"/>
         </Modal>
       </div>
     )

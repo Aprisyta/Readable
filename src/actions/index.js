@@ -41,7 +41,6 @@ export const addPost = ( body ) => dispatch => (
 );
 
 export function recievePost ( post ) {
-  console.log(post);
   return {
     type: GET_POST,
     post,
@@ -58,6 +57,13 @@ export const postVoteOnPost = (postID, vote) => dispatch => (
   PostsAPI
       .voteOnPost(postID, vote)
       .then((post) => dispatch(recievePost(post)))
+);
+
+export const editPost = (postID, body) => dispatch => (
+  PostsAPI
+    .editPost(postID, body)
+    .then(post => dispatch(recievePost(post)))
+    .then(() => dispatch(getAllPosts()))
 );
 
 export const postToDeletePost = (postID) => dispatch => (

@@ -62,7 +62,11 @@ class Post extends Component {
           <span className="post-date-and-topic-holder">
             {` posted on ${category} dated ${month} ${dt}, ${year} at ${hour}:${min}`}
           </span>
-          <DropDownMenu context="Post" postID={id} commentID={id}/>
+          <DropDownMenu
+            context="Post"
+            postID={id}
+            commentID={id}
+          />
         </div>
         <div className="post-title-holder">{title}</div>
         <div className="post-body-holder">{body}</div>

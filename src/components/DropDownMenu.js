@@ -1,12 +1,31 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import MultipleOption from 'react-icons/lib/fa/ellipsis-h'
-import { postToDeletePost, postToDeleteComment } from '../actions'
+import { postToDeletePost, postToDeleteComment, getPost } from '../actions'
+import Modal from 'react-modal'
+import AddEditPost from './AddEditPost'
 
 class DropDownMenu extends Component {
 
   state = {
     isElipsisClicked: false,
+    editPostModalOpen: false,
+  }
+
+  edit = (postID, commentID, context) => {
+    if(context === "Post") {
+      this.openEditPostModal(postID)
+    }
+  }
+
+  openEditPostModal = (postID) => {
+    this.props.getPost(postID)
+    this.setState({ editPostModalOpen: true })
+    this.showDropDown()
+  }
+
+  closeEditPostModal = () => {
+    this.setState({ editPostModalOpen: false })
   }
 
   showDropDown = () => {
@@ -27,7 +46,7 @@ class DropDownMenu extends Component {
   }
 
   render() {
-    const { isElipsisClicked } = this.state
+    const { isElipsisClicked, editPostModalOpen } = this.state
     const { context, postID, commentID } = this.props
     let bgColor
     context === "Post"
@@ -50,7 +69,11 @@ class DropDownMenu extends Component {
             isElipsisClicked === true
               ? <div className="dropdown-content-holder">
                   <ul>
-                    <li >Edit {context}</li>
+                    <li
+                      onClick={() => this.edit(postID, commentID, context)}
+                    >
+                      Edit {context}
+                    </li>
                     <li
                       onClick={() => this.remove(postID, commentID, context)}
                     >
@@ -61,6 +84,16 @@ class DropDownMenu extends Component {
               : null
           }
         </span>
+        <Modal
+          className='modal'
+          overlayClassName='overlay'
+          content='Modal'
+          isOpen={editPostModalOpen}
+          onRequestClose={this.closeEditPostModal}
+          ariaHideApp={false}
+        >
+          <AddEditPost context="Edit"/>
+        </Modal>
       </div>
     )
   }
@@ -68,6 +101,7 @@ class DropDownMenu extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
+    getPost: (postID) => dispatch(getPost(postID)),
     deletePost: (postID) => dispatch(postToDeletePost(postID)),
     deleteComment: (commentID, postID) => dispatch(postToDeleteComment(commentID, postID))
   }

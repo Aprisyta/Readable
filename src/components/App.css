@@ -86,10 +86,6 @@ input, select{
   font-size: 0;
 }
 
-.icon-add:hov {
-
-}
-
 .overlay {
   position: fixed;
   top: 0px;

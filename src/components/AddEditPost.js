@@ -1,25 +1,47 @@
 import React, { Component } from 'react';
-import { addPost } from '../actions'
+import { addPost, editPost } from '../actions'
 import require from 'uuid'
 import { connect } from 'react-redux'
 import serializeForm from 'form-serialize'
+import { DebounceInput } from 'react-debounce-input'
 
-class AddEditPost extends Component{
+class AddEditPost extends Component {
+
+  state = {
+    title: '',
+    body: '',
+  }
+
+  componentDidMount () {
+    const { context } = this.props
+    if (context === "Edit") {
+      const { author, category, title, body } = this.props.post
+      this.setState({ author, category, title, body })
+    }
+  }
 
   handleSubmit = (e) => {
     e.preventDefault()
     const values = serializeForm(e.target, { hash: true })
-    const uuid = require('uuid/v1')
-    const timestamp = Date.now()
-    values.id = uuid
-    values.timestamp = timestamp
-    this.props.addPost(values)
+
+    if(this.props.context === "Post") {
+      const uuid = require('uuid/v1')
+      const timestamp = Date.now()
+      values.id = uuid
+      values.timestamp = timestamp
+      this.props.addPost(values)
+    }
+    else {
+      const { id } = this.props.post
+      this.props.editPost(id, values)
+    }
   }
 
-  render(){
-    const { categories } = this.props
-    let header
-    header = "Write something here!"
+  render() {
+    const { categories, context } = this.props
+    const { title, body } = this.state
+    let mode
+    if( context === "Edit" ) { mode = "readOnly"}
     return(
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -29,34 +51,38 @@ class AddEditPost extends Component{
               name="author"
               type="text"
               placeholder="Name"
-              debounceTimeout={300}
+              defaultValue={this.props.post.author}
             />
             <select
                 type="textarea"
                 name="category"
                 placeholder="Category"
+                defaultValue={this.props.post.author}
             >
-              <option disabled selected value> -- select a category -- </option>
               {
                 categories.map(category =>
                   <option key={category.name}>{category.name}</option>
                 )
               }
             </select>
-            <input
+            <DebounceInput
               className="write-title"
               type="textarea"
               placeholder="Title"
               name="title"
+              value={title}
               debounceTimeout={300}
+              onChange={(e) => this.setState({ title: e.target.value })}
             />
           </div>
-          <input
+          <DebounceInput
             className="write-post"
             type="textarea"
             placeholder="Body"
             name="body"
+            value={body}
             debounceTimeout={300}
+            onChange={(e) => this.setState({ body: e.target.value })}
           />
           <button
             value="post"
@@ -70,13 +96,17 @@ class AddEditPost extends Component{
   }
 }
 
-function mapStateToProps({ fetchCategories }) {
-  return { categories: fetchCategories }
+function mapStateToProps({ fetchCategories, fetchPostDetails }) {
+  return {
+    categories: fetchCategories,
+    post: fetchPostDetails,
+  }
 }
 
 function mapDispatchToProps( dispatch ) {
   return {
-    addPost: (body) => dispatch(addPost(body))
+    addPost: (body) => dispatch(addPost(body)),
+    editPost: (postID, body) => dispatch(editPost(postID, body))
   }
 }
 
