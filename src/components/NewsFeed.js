@@ -10,6 +10,7 @@ class NewsFeed extends Component {
 
   state = {
     addPostModalOpen: false,
+    posts: [],
   }
 
   openAddPostModal = () => {
@@ -21,30 +22,21 @@ class NewsFeed extends Component {
   }
 
   componentDidMount() {
-    this.props.getAllPosts()
+    this.props.getAllPosts().then(res => this.setState({
+      posts: res.posts
+    }))
+  }
 
-    // PostsAPI.getByCategory(`react`).then((posts) => {
-    //   this.setState({
-    //     posts,
-    //   })
-    // })
-
-    // const editBody = {
-    //   title: "Hi Post on react",
-    //   body: "React is simple. "
-    // }
-    // const id = "8xf0y6ziyjabvozdd253nd"
-    // PostsAPI.editPost(id, editBody)
-    // PostsAPI.getAllPosts().then((posts) => {
-    //   this.setState({
-    //     posts,
-    //   })
-    // })
+  componentWillReceiveProps(nextProps) {
+    const { posts } = nextProps
+    this.setState({
+      posts,
+    })
   }
 
   render() {
-    const { posts } = this.props;
-    const { addPostModalOpen } = this.state
+    const { addPostModalOpen, posts } = this.state
+    console.log(posts);
     return (
       <div>
         {
