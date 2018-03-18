@@ -94,8 +94,15 @@ export function recieveComment ( comment ) {
 
 export const getComment = (commentID) => dispatch => (
   PostsAPI
-      .getCommentByID(commentID)
-      .then(comment => dispatch(recieveComment(comment)))
+    .getCommentByID(commentID)
+    .then(comment => dispatch(recieveComment(comment)))
+);
+
+export const addComment = (body, postID) => dispatch => (
+  PostsAPI
+    .addComment(body)
+    .then((comment) => dispatch(recieveComment(comment)))
+    .then((postID) => dispatch(getAllComments(postID)))
 );
 
 export const postVoteOnComment = ( commentID, vote ) => dispatch => (
