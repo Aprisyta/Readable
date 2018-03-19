@@ -81,8 +81,8 @@ export function recieveAllComments (comments) {
 
 export const getAllComments = (postID) => dispatch => (
   PostsAPI
-      .getCommentsOnPost(postID)
-      .then(comments => dispatch(recieveAllComments(comments)))
+    .getCommentsOnPost(postID)
+    .then(comments => dispatch(recieveAllComments(comments)))
 );
 
 export function recieveComment ( comment ) {
