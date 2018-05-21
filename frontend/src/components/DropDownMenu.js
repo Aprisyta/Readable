@@ -138,7 +138,7 @@ class DropDownMenu extends Component {
         >
           <AddEditPost
             isAddPost={false}
-            closeModal={this.closeEditPostModal}
+            closeModal={this.closeEditModal}
           />
         </Modal>
         <Modal

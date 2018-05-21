@@ -34,8 +34,4 @@ class App extends Component {
   }
 }
 
-// function mapDispatchToProps(dispatch) {
-//   getAllPosts: () =>
-// }
-
 export default connect(null)(App);

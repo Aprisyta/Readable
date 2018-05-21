@@ -97,7 +97,7 @@ class CategorySelector extends Component {
         <div>
           <form
             onSubmit={this.handleSubmit}
-            class="comment-holder"
+            className="comment-holder"
           >
             <DebounceInput
               className="write-author-of-comment"
