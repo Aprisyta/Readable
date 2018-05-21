@@ -1,0 +1,14 @@
+.post-view-button {
+  width: 49% !important;
+  margin: 0 0.5%
+}
+
+.write-author-of-comment, .write-comment{
+  margin: 1% 20px;
+  padding: 5px 10px;
+  font-size: inherit;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #292477;
+  outline: 0;
+}

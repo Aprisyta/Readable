@@ -1,0 +1,42 @@
+.author-select-container {
+  display: flex;
+  margin: 3% 15%;
+}
+
+.author-select-container input {
+  width: 50%;
+  margin: 0;
+}
+
+.author-select-container select {
+  width: 50%;
+  margin: 0 5%;
+}
+
+input, select{
+  margin: 3% 15%;
+  width: 68%;
+  padding: 5px 10px;
+  font-size: inherit;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #292477;
+  outline: 0;
+}
+
+.write-post-bar-button {
+  width: 30%;
+  height: 80%;
+  margin: 3% 35%;
+  padding: 7px 0;
+  color: white;
+  background-color: #292477;
+  font-family: inherit;
+  font-weight: bolder;
+  border: #292477;
+}
+
+.message {
+  text-align: center;
+  color: red;
+}
