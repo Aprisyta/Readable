@@ -80,11 +80,7 @@ function post ( state = [], action ) {
       break
     case DELETE_POST:
       if(state.id === action.post.id) {
-        let rt = {
-          ...state,
-          deleted: !state.deleted
-        }
-        return rt
+        return []
       }
       else
         return state

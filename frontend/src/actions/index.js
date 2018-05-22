@@ -46,6 +46,7 @@ export const getAllPostsInCategory = (category) => dispatch => (
 );
 
 export function recievePost ( post ) {
+  console.log(post);
   return {
     type: GET_POST,
     post,

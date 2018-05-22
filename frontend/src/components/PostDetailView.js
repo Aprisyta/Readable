@@ -10,12 +10,19 @@ import serializeForm from 'form-serialize'
 import Comment from './Comment'
 import require from 'uuid'
 import { DebounceInput } from 'react-debounce-input'
+import { getPost } from '../actions'
+import GoToHome from './GoToHome'
 
 class CategorySelector extends Component {
 
   state = {
     commentAuthor: '',
     commentBody: '',
+    isLoading: false,
+  }
+
+  componentDidMount() {
+    this.props.getPost(this.props.match.params.id)
   }
 
   vote = (postID, voteScore) => {
@@ -46,11 +53,14 @@ class CategorySelector extends Component {
       timestamp,
       title ,
       voteScore,
-      deleted,
     } = this.props.post
-    if(deleted) {
+
+    if(!id) {
       return (
-        <div>Post has been deleted</div>
+        <div>
+          <div style={{marginTop: '40px', fontSize: '30px', color: 'red'}}>ERROR 404: Page not found.</div>
+          <GoToHome />
+        </div>
       )
     }
     const { comments } = this.props
@@ -58,74 +68,77 @@ class CategorySelector extends Component {
     console.log(this.props.post);
     const dateString = dateConverter(timestamp)
     return(
-      <div className="post-container">
-        <div className="post-header">
-          <span className="post-author-holder">{author}</span>
-          <span className="post-date-and-topic-holder">
-            {` posted on ${category} ${dateString}`}
-          </span>
-          <DropDownMenu id={id} fromPost={true}/>
-        </div>
-        <div className="post-title-holder">{title}</div>
-        <div className="post-body-holder">{body}</div>
-        <div className="post-vote-comment-show">
-          {`${voteScore} likes || ${commentCount} comments`}
-        </div>
-        <div className="post-button-container">
-          <button
-            className="post-view-button"
-            onClick={() => this.vote(id, "upVote")}
-            title="Like"
-          >
-            <LikeIcon />
-          </button>
-          <button
-            className="post-view-button"
-            onClick={() => this.vote(id, "downVote")}
-            title="Dislike"
-          >
-            <DislikeIcon />
-          </button>
-        </div>
-        <div className="comment-section">
-          {
-            comments.map((comment) => (
-              <Comment comment={comment} key={comment.id}/>
-            ))
-          }
-        </div>
-        <div>
-          <form
-            onSubmit={this.handleSubmit}
-            className="comment-holder"
-          >
-            <DebounceInput
-              className="write-author-of-comment"
-              style={{width: '29%'}}
-              value={commentAuthor}
-              name="author"
-              type="text"
-              placeholder="Name"
-              debounceTimeout={300}
-              onChange={(e) => this.setState({ commentAuthor: e.target.value })}
-            />
-          <DebounceInput
-              className="write-comment"
-              style={{width: '55%', float: 'right'}}
-              value={commentBody}
-              type="textarea"
-              placeholder="Write your comment here!"
-              name="body"
-              debounceTimeout={300}
-              onChange={(e) => this.setState({ commentBody: e.target.value })}
-            />
+      <div>
+        <GoToHome />
+        <div className="post-container">
+          <div className="post-header">
+            <span className="post-author-holder">{author}</span>
+            <span className="post-date-and-topic-holder">
+              {` posted on ${category} ${dateString}`}
+            </span>
+            <DropDownMenu id={id} fromPost={true}/>
+          </div>
+          <div className="post-title-holder">{title}</div>
+          <div className="post-body-holder">{body}</div>
+          <div className="post-vote-comment-show">
+            {`${voteScore} likes || ${commentCount} comments`}
+          </div>
+          <div className="post-button-container">
             <button
-              value="post"
-              style={{margin: '3% 35%'}}
+              className="post-view-button"
+              onClick={() => this.vote(id, "upVote")}
+              title="Like"
             >
-              Comment
+              <LikeIcon />
             </button>
-          </form>
+            <button
+              className="post-view-button"
+              onClick={() => this.vote(id, "downVote")}
+              title="Dislike"
+            >
+              <DislikeIcon />
+            </button>
+          </div>
+          <div className="comment-section">
+            {
+              comments.map((comment) => (
+                <Comment comment={comment} key={comment.id}/>
+              ))
+            }
+          </div>
+          <div>
+            <form
+              onSubmit={this.handleSubmit}
+              className="comment-holder"
+            >
+              <DebounceInput
+                className="write-author-of-comment"
+                style={{width: '29%'}}
+                value={commentAuthor}
+                name="author"
+                type="text"
+                placeholder="Name"
+                debounceTimeout={300}
+                onChange={(e) => this.setState({ commentAuthor: e.target.value })}
+              />
+            <DebounceInput
+                className="write-comment"
+                style={{width: '55%', float: 'right'}}
+                value={commentBody}
+                type="textarea"
+                placeholder="Write your comment here!"
+                name="body"
+                debounceTimeout={300}
+                onChange={(e) => this.setState({ commentBody: e.target.value })}
+              />
+              <button
+                value="post"
+                style={{margin: '3% 35%'}}
+              >
+                Comment
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     )
@@ -139,7 +152,8 @@ function mapStateToProps({ post, comments }) {
 function mapDispatchToProps(dispatch) {
   return {
     postVoteOnPost: (postID, voteScore) => dispatch(postVoteOnPost( postID, voteScore )),
-    addComment: (body) => dispatch(postAddComment(body))
+    addComment: (body) => dispatch(postAddComment(body)),
+    getPost: (id) => dispatch(getPost(id))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CategorySelector)
