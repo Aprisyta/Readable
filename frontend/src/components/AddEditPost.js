@@ -73,7 +73,9 @@ class AddEditPost extends Component {
                 >
                   {
                     categories.map(category =>
-                      <option key={category.name}>{category.name}</option>
+                      category.name === 'all'
+                        ? null
+                        : <option key={category.name}>{category.name}</option>
                     )
                   }
                 </select>

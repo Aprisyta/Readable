@@ -4,7 +4,7 @@ import FilterIcon from 'react-icons/lib/fa/filter'
 import { purple } from '../utils/colors'
 import '../style/CategorySelector.css'
 import ReactDOM from 'react-dom'
-import { getAllPostsInCategory } from '../actions'
+import { getAllPostsInCategory, getAllPosts } from '../actions'
 
 class CategorySelector extends Component {
 
@@ -34,13 +34,18 @@ class CategorySelector extends Component {
 
   categoryClick = (category) => {
     this.props.history.push(category)
-    this.props.dispatch(getAllPostsInCategory(category))
+    category === '/'
+      ? this.props.dispatch(getAllPosts())
+      : this.props.dispatch(getAllPostsInCategory(category))
     this.setState({ isCategoryClicked: false })
   }
 
   render() {
     const { categories } = this.props
     const { isCategoryClicked } = this.state
+    if(categories.length > 0 && !categories[categories.length] && categories[categories.length - 1].name !== 'all') {
+      categories.push({'name': 'all', 'path': '/'})
+    }
     return (
       <div className="categorise-post">
         {
@@ -50,7 +55,7 @@ class CategorySelector extends Component {
                 categories.map((category) => (
                   <li
                     key={category.name}
-                    onClick={() => this.categoryClick(category.name)}
+                    onClick={() => this.categoryClick(category.path)}
                   >
                     {category.name}
                   </li>
