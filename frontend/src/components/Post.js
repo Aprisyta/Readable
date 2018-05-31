@@ -17,7 +17,7 @@ class Post extends Component {
 
   onPostViewRequest = (postID) => {
     const { getPost, getAllComments } = this.props
-    getPost(postID)
+    // getPost(postID)
     getAllComments(postID)
   }
 
